@@ -1,1 +1,1 @@
-test-app-starter
+test-app-starter demo

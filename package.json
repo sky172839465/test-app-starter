@@ -24,7 +24,10 @@
     "lint": "if standard --fix | snazzy; then echo '💯 Lint perfect'; else echo '⁉️ Lint get error please run `npm run lint` check again';exit 1; fi",
     "functional::local": "npm run start:selenium && codeceptjs run --steps --config=./codecept/local.config.js",
     "start:selenium": "selenium-standalone start > /dev/null 2>&1 &",
-    "kill:selenium": "lsof -t -i :4444 | xargs kill"
+    "kill:selenium": "lsof -t -i :4444 | xargs kill",
+    "functional::online": "if codeceptjs run --steps --config=./codecept/sauce.config.js; then echo '🎊 Functional test run success'; else echo '💔 Functional test run failure'; exit 1; fi",
+    "functional::online:localhost": "export BASE_URL=http://localhost:3000/; npm run functional::online",
+    "start::sauce_connect": "bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,10 +40,12 @@
   ],
   "devDependencies": {
     "@types/jest": "^24.0.0",
+    "codeceptjs-saucehelper": "^1.1.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "enzyme-to-json": "^3.3.5",
     "node-sass": "^4.11.0",
+    "saucelabs": "^1.5.0",
     "snazzy": "^8.0.0",
     "standard": "^12.0.1"
   },

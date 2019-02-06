@@ -13,6 +13,6 @@ script:
   - npm run lint
   - npm run test
   - npm run deploy::prod
-  - npm run functional::online:multiple
+  - npm run functional::online
 true:
   branch: master

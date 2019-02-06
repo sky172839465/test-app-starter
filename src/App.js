@@ -1,28 +1,38 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
+import routeConfig from './routeConfig'
+import AppHeader from './Component/Common/AppHeader'
+import NoFoundPage from './Component/Page/NotFound'
+import 'bulma/css/bulma.min.css'
 
 class App extends Component {
-  render() {
+  render () {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+      <HashRouter>
+        <div className='App'>
+          <AppHeader
+            name='Test App'
+            link='https://sky172839465.github.io/test-app'
+          />
+          <section className='section'>
+            <div className='container is-fluid'>
+              <Switch>
+                <Route exact path='/' render={() => <Redirect to={routeConfig[0].path} />} />
+                {routeConfig.map(route => {
+                  return <Route
+                    path={route.path}
+                    component={route.component}
+                    key={route.page}
+                  />
+                })}
+                <Route component={NoFoundPage} />
+              </Switch>
+            </div>
+          </section>
+        </div>
+      </HashRouter>
+    )
   }
 }
 
-export default App;
+export default App

@@ -1,5 +1,6 @@
 {
   "name": "test-app-starter",
+  "homepage": "https://sky172839465.github.io/test-app-starter/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,7 +19,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "if react-scripts build; then echo '😏 Build success'; else echo '😨 Build failure'; exit 1; fi",
     "test": "if CI=true react-scripts test --coverage --env=jsdom; then echo '✅ Unit test run success'; else echo '❌ Unit test run failure'; exit 1; fi",
     "eject": "react-scripts eject",
     "lint": "if standard --fix | snazzy; then echo '💯 Lint perfect'; else echo '⁉️ Lint get error please run `npm run lint` check again';exit 1; fi",
@@ -27,7 +28,8 @@
     "kill:selenium": "lsof -t -i :4444 | xargs kill",
     "functional::online": "if codeceptjs run --steps --config=./codecept/sauce.config.js; then echo '🎊 Functional test run success'; else echo '💔 Functional test run failure'; exit 1; fi",
     "functional::online:localhost": "export BASE_URL=http://localhost:3000/; npm run functional::online",
-    "start::sauce_connect": "bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY"
+    "start::sauce_connect": "bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY",
+    "deploy::prod": "npm run build && if bash ./ghpage-deploy.sh; then echo '🤗 Deploy success'; else echo '😱 Deploy failure'; exit 1; fi"
   },
   "eslintConfig": {
     "extends": "react-app"

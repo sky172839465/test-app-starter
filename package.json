@@ -3,21 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@applitools/eyes.webdriverio": "^2.0.0",
     "bulma": "^0.7.2",
     "classnames": "^2.2.6",
+    "codeceptjs": "^2.0.4",
     "lodash": "^4.17.11",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-loadable": "^5.5.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.3"
+    "react-scripts": "^2.1.3",
+    "selenium-standalone": "^6.15.4",
+    "webdriverio": "^4.14.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "if CI=true react-scripts test --coverage --env=jsdom; then echo '✅ Unit test run success'; else echo '❌ Unit test run failure'; exit 1; fi",
     "eject": "react-scripts eject",
-    "lint": "if standard --fix | snazzy; then echo '💯 Lint perfect'; else echo '⁉️ Lint get error please run `npm run lint` check again';exit 1; fi"
+    "lint": "if standard --fix | snazzy; then echo '💯 Lint perfect'; else echo '⁉️ Lint get error please run `npm run lint` check again';exit 1; fi",
+    "functional::local": "npm run start:selenium && codeceptjs run --steps --config=./codecept/local.config.js",
+    "start:selenium": "selenium-standalone start > /dev/null 2>&1 &",
+    "kill:selenium": "lsof -t -i :4444 | xargs kill"
   },
   "eslintConfig": {
     "extends": "react-app"
